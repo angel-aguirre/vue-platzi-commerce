@@ -11,14 +11,15 @@ const app = createApp({
                 images: [
                     {
                         image: './img/camara.jpg',
-                        thumbnail: './images/camara-thumb.jpg',
+                        thumbnail: './img/camara-thumb.jpg',
                     },
                     {
                         image: './img/camara-2.jpg',
-                        thumbnail: './images/camara-2-thumb.jpg',
+                        thumbnail: './img/camara-2-thumb.jpg',
                     },
                 ]
-            }
+            },
+            activeImage: 0,
         }
     }
 });
