@@ -16,14 +16,19 @@ const app = createApp({
                     image: './img/camara-2.jpg',
                     thumbnail: './img/camara-2-thumb.jpg',
                 },
-            ]
+            ],
+            new: false,
+            offer: true,
         });
+
+        const cartOpen = ref(false);
 
         const activeImage = ref(0);
 
         return {
             product,
             activeImage,
+            cartOpen,
         }
     },
     mounted() {

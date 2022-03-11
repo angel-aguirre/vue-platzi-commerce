@@ -17,8 +17,11 @@ const app = createApp({
                         image: './img/camara-2.jpg',
                         thumbnail: './img/camara-2-thumb.jpg',
                     },
-                ]
+                ],
+                new: true,
+                offer: true,
             },
+            cartOpen: false,
             activeImage: 0,
         }
     }
