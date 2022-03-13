@@ -5,7 +5,7 @@ const app = createApp({
         const product = ref({
             name: 'Camara',
             price: 5_500,
-            stock: 0,
+            stock: 8,
             content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem consequatur iure, quas voluptatem quasi ea reiciendis quam expedita placeat mollitia culpa labore nobis ab, et praesentium laudantium consectetur adipisci consequuntur!',
             images: [
                 {
@@ -21,7 +21,7 @@ const app = createApp({
             offer: true,
         });
 
-        const cartOpen = ref(true);
+        const cartOpen = ref(false);
 
         const activeImage = ref(0);
 
