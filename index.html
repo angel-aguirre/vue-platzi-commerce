@@ -29,52 +29,12 @@
             </header>
 
             <main>
-                <section class="product">
-                    <div class="product__thumbnails">
-                        <div 
-                            v-for="(image, index) in product.images"
-                            :key="index"
-                            :class="{ active: activeImage === index }" 
-                            :style="{ backgroundImage: `url(${image.thumbnail})` }"
-                            class="thumb" 
-                            @click="activeImage = index"
-                        >
-                        </div>
-                    </div><!-- .product__thumbnails -->
-                    <div class="product__image">
-                        <img :src="product.images[activeImage].image" alt="">
-                    </div><!-- .product__image -->
-                </section><!-- .product -->
-
-                <section class="description">
-                    <h4>{{ product.name.toUpperCase() }}</h4>
-                    <span class="badge new" v-if="product.new">Nuevo</span>
-                    <span class="badge offer" v-if="product.offer">Oferta</span>
-                    <p class="description__status" v-if="product.stock >= 2 && product.stock <=5">Quedan pocas unidades</p>
-                    <p class="description__status" v-else-if="product.stock === 1">Ultima unidad</p>
-                    <p class="description__status" v-else-if="product.stock === 0">Agotado</p>
-                    <p class="description__price">$ {{ new Intl.NumberFormat('es-MX').format(product.price) }}</p>
-                    <div class="description__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem consequatur iure, quas voluptatem quasi ea reiciendis quam expedita placeat mollitia culpa labore nobis ab, et praesentium laudantium consectetur adipisci consequuntur!</div>
-
-                    <div class="discount">
-                        <span>Código de Descuento:</span>
-                        <input 
-                            type="text" 
-                            placeholder="Ingresa tu código"
-                            @keyup.enter="applyDiscount"
-                        >
-                    </div>
-
-                    <button 
-                        :disabled="product.stock === 0"
-                        @click="addToCart"
-                    >Agregar al carrito</button>
-                </section><!-- .description -->
+                <product></product>
             </main>
         </div>
 
         <script src="https://unpkg.com/vue@3"></script>
-        <script src="./js/app_composition.js"></script>
-        <!-- <script src="./js/app_options.js"></script> -->
+        <!-- <script src="./js/app_composition.js"></script> -->
+        <script src="./js/app_options.js" type="module"></script>
     </body>
 </html>
