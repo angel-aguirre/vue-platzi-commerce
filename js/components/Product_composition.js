@@ -1,4 +1,4 @@
-const { ref, reactive, toRefs } = Vue;
+const { ref, reactive, toRefs, watch } = Vue;
 
 export const Product = {
     template: `
@@ -25,7 +25,10 @@ export const Product = {
             <p class="description__status" v-if="product.stock >= 2 && product.stock <=5">Quedan pocas unidades</p>
             <p class="description__status" v-else-if="product.stock === 1">Ultima unidad</p>
             <p class="description__status" v-else-if="product.stock === 0">Agotado</p>
-            <p class="description__price">$ {{ new Intl.NumberFormat('es-MX').format(product.price) }}</p>
+            <p 
+                class="description__price"
+                :style="{ color: priceColor }"
+            >$ {{ new Intl.NumberFormat('es-MX').format(product.price) }}</p>
             <div class="description__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem consequatur iure, quas voluptatem quasi ea reiciendis quam expedita placeat mollitia culpa labore nobis ab, et praesentium laudantium consectetur adipisci consequuntur!</div>
 
             <div class="discount">
@@ -53,6 +56,7 @@ export const Product = {
     setup(props, context) {
         const productState = reactive({
             activeImage: 0,
+            priceColor: 'rgb(104, 104, 209)',
         });
 
         const discountCodes = ref(['PLATZI2022', 'PLATZI20']);
@@ -68,6 +72,15 @@ export const Product = {
         function sendToCart() {
             context.emit('send-to-cart', props.product);
         }
+
+        watch(
+            () => props.product.stock,
+            (stock) => {
+                if ( stock <= 1 ) {
+                    productState.priceColor = 'rgb(188, 30, 67)';
+                }
+            }
+        )
 
         return {
             ...toRefs(productState),

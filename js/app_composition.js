@@ -1,6 +1,6 @@
 import { Product } from "./components/Product_composition.js";
 import { Badge } from "./components/Badge.js";
-const { createApp, ref, reactive, toRefs } = Vue;
+const { createApp, ref, reactive, toRefs, watch } = Vue;
 
 const app = createApp({
     setup() {
@@ -67,6 +67,7 @@ const app = createApp({
         const cartState = reactive({
             cartOpen: false,
             cart: [],
+            total: 0,
         });
 
         function addToCart(product) {
@@ -79,6 +80,17 @@ const app = createApp({
             }
             product.stock -= 1;
         }
+
+        watch(
+            cartState.cart,
+            (value) => {
+                cartState.total = cartState.cart.reduce((prev, curr) => {
+                    const prevPrice = prev.price || prev;
+                    const prevQuantity = prev.quantity || 1;
+                    return prevPrice * prevQuantity + curr.price * curr.quantity;
+                }, 0);
+            }
+        )
 
         return {
             ...toRefs(cartState),
