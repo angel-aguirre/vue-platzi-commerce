@@ -1,4 +1,4 @@
-const { ref, reactive, toRefs, watch } = Vue;
+const { ref, reactive, toRefs, watch, computed } = Vue;
 
 export const Product = {
     template: `
@@ -56,8 +56,16 @@ export const Product = {
     setup(props, context) {
         const productState = reactive({
             activeImage: 0,
-            priceColor: 'rgb(104, 104, 209)',
+            priceColor: computed(() => ( props.product.stock <= 1 ) ? 'rgb(188, 30, 67)' : 'rgb(104, 104, 209)'),
         });
+
+        // const priceColor = computed(() => {
+        //     if ( props.product.stock <= 1 ) {
+        //         return 'rgb(188, 30, 67)';
+        //     }
+
+        //     return 'rgb(104, 104, 209)';
+        // });
 
         const discountCodes = ref(['PLATZI2022', 'PLATZI20']);
 
@@ -73,17 +81,18 @@ export const Product = {
             context.emit('send-to-cart', props.product);
         }
 
-        watch(
-            () => props.product.stock,
-            (stock) => {
-                if ( stock <= 1 ) {
-                    productState.priceColor = 'rgb(188, 30, 67)';
-                }
-            }
-        )
+        // watch(
+        //     () => props.product.stock,
+        //     (stock) => {
+        //         if ( stock <= 1 ) {
+        //             productState.priceColor = 'rgb(188, 30, 67)';
+        //         }
+        //     }
+        // )
 
         return {
             ...toRefs(productState),
+            // priceColor,
             applyDiscount,
             sendToCart,
         }
