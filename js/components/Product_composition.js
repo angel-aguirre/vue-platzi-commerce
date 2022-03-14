@@ -39,7 +39,7 @@ export const Product = {
 
             <button 
                 :disabled="product.stock === 0"
-                @click="addToCart"
+                @click="sendToCart"
             >Agregar al carrito</button>
         </section><!-- .description -->
     `,
@@ -49,7 +49,8 @@ export const Product = {
             required: true,
         }
     },
-    setup(props) {
+    emits: ['send-to-cart'],
+    setup(props, context) {
         const productState = reactive({
             activeImage: 0,
         });
@@ -64,21 +65,14 @@ export const Product = {
             }
         }
 
-        function addToCart() {
-            const prodIndex = cartState.cart.findIndex(prod => prod.name === props.product.name);
-
-            if ( prodIndex >= 0 ) {
-                cartState.cart[prodIndex].quantity += 1;
-            } else {   
-                cartState.cart.push(props.product);
-            }
-            props.product.stock -= 1;
+        function sendToCart() {
+            context.emit('send-to-cart', props.product);
         }
 
         return {
             ...toRefs(productState),
-            addToCart,
             applyDiscount,
+            sendToCart,
         }
     }
 }

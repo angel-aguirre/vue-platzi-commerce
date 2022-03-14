@@ -63,15 +63,29 @@ const app = createApp({
                 quantity: 1,
             },
         ])
+
         const cartState = reactive({
             cartOpen: false,
             cart: [],
         });
 
+        function addToCart(product) {
+            const prodIndex = cartState.cart.findIndex(prod => prod.name === product.name);
+
+            if ( prodIndex >= 0 ) {
+                cartState.cart[prodIndex].quantity += 1;
+            } else {   
+                cartState.cart.push(product);
+            }
+            product.stock -= 1;
+        }
+
         return {
             ...toRefs(cartState),
 
             products,
+
+            addToCart,
         }
     },
     mounted() {
