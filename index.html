@@ -29,12 +29,17 @@
             </header>
 
             <main>
-                <product></product>
+                <product 
+                    v-for="(product, index) in products"
+                    :key="index"
+                    :product="product"
+                >
+                </product>
             </main>
         </div>
 
         <script src="https://unpkg.com/vue@3"></script>
-        <!-- <script src="./js/app_composition.js"></script> -->
+        <!-- <script src="./js/app_composition.js" type="module"></script> -->
         <script src="./js/app_options.js" type="module"></script>
     </body>
 </html>

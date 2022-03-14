@@ -1,3 +1,5 @@
+const { ref, reactive, toRefs } = Vue;
+
 export const Product = {
     template: `
         <section class="product">
@@ -45,33 +47,39 @@ export const Product = {
     props: {
         product: {
             type: Object,
-            required: true
+            required: true,
         }
     },
-    data() {
-        return {
+    setup(props) {
+        const productState = reactive({
             activeImage: 0,
-            discountCodes: ['PLATZI2022', 'PLATZI20'],
-        }
-    },
-    methods: {
-        applyDiscount(event) {
-            const discountCodeIndex = this.discountCodes.indexOf(event.target.value);
+        });
+
+        const discountCodes = ref(['PLATZI2022', 'PLATZI20']);
+
+        function applyDiscount(event) {
+            const discountCodeIndex = discountCodes.value.indexOf(event.target.value);
             if ( discountCodeIndex >= 0 ) {
-                console.log(event);
-                this.product.price *= 50 / 100;
-                this.discountCodes.splice(discountCodeIndex, 1);
+                props.product.price *= 50 / 100;
+                discountCodes.value.splice(discountCodeIndex, 1);
             }
-        },
-        addToCart() {
-            console.log('here');
-            const prodIndex = this.cart.findIndex(product => product.name === this.product.name);
+        }
+
+        function addToCart() {
+            const prodIndex = cartState.cart.findIndex(prod => prod.name === props.product.name);
+
             if ( prodIndex >= 0 ) {
-                this.cart[prodIndex].quantity += 1;
+                cartState.cart[prodIndex].quantity += 1;
             } else {   
-                this.cart.push(this.product);
+                cartState.cart.push(props.product);
             }
-            this.product.stock -= 1;
+            props.product.stock -= 1;
+        }
+
+        return {
+            ...toRefs(productState),
+            addToCart,
+            applyDiscount,
         }
     }
 }
