@@ -1,4 +1,5 @@
 import { Product } from './components/Product_options.js';
+import { Badge } from './components/Badge.js';
 const { createApp } = Vue;
 
 const app = createApp({
@@ -60,7 +61,7 @@ const app = createApp({
                             thumbnail: './img/camara-2-thumb.jpg',
                         },
                     ],
-                    new: false,
+                    new: true,
                     offer: true,
                     quantity: 1,
                 },
@@ -70,6 +71,8 @@ const app = createApp({
     methods: {
     }
 });
+
+app.component('badge', Badge);
 
 app.component('product', Product);
 

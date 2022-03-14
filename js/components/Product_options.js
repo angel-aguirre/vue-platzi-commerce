@@ -19,8 +19,7 @@ export const Product = {
 
         <section class="description">
             <h4>{{ product.name.toUpperCase() }}</h4>
-            <span class="badge new" v-if="product.new">Nuevo</span>
-            <span class="badge offer" v-if="product.offer">Oferta</span>
+            <badge :product="product"></badge>
             <p class="description__status" v-if="product.stock >= 2 && product.stock <=5">Quedan pocas unidades</p>
             <p class="description__status" v-else-if="product.stock === 1">Ultima unidad</p>
             <p class="description__status" v-else-if="product.stock === 0">Agotado</p>

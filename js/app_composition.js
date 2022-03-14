@@ -1,4 +1,5 @@
 import { Product } from "./components/Product_composition.js";
+import { Badge } from "./components/Badge.js";
 const { createApp, ref, reactive, toRefs } = Vue;
 
 const app = createApp({
@@ -19,7 +20,7 @@ const app = createApp({
                         thumbnail: './img/camara-2-thumb.jpg',
                     },
                 ],
-                new: false,
+                new: true,
                 offer: true,
                 quantity: 1,
             },
@@ -77,6 +78,8 @@ const app = createApp({
         console.log('composition');
     }
 })
+
+app.component('Badge', Badge);
 
 app.component('product', Product);
 
