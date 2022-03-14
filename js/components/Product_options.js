@@ -37,7 +37,7 @@ export const Product = {
 
             <button 
                 :disabled="product.stock === 0"
-                @click="addToCart"
+                @click="sendToCart"
             >Agregar al carrito</button>
         </section><!-- .description -->
     `,
@@ -53,24 +53,17 @@ export const Product = {
             discountCodes: ['PLATZI2022', 'PLATZI20'],
         }
     },
+    emits: ['send-to-cart'],
     methods: {
         applyDiscount(event) {
             const discountCodeIndex = this.discountCodes.indexOf(event.target.value);
             if ( discountCodeIndex >= 0 ) {
-                console.log(event);
                 this.product.price *= 50 / 100;
                 this.discountCodes.splice(discountCodeIndex, 1);
             }
         },
-        addToCart() {
-            console.log('here');
-            const prodIndex = this.cart.findIndex(product => product.name === this.product.name);
-            if ( prodIndex >= 0 ) {
-                this.cart[prodIndex].quantity += 1;
-            } else {   
-                this.cart.push(this.product);
-            }
-            this.product.stock -= 1;
+        sendToCart() {
+            this.$emit('send-to-cart', this.product);
         }
     }
 }
