@@ -54,7 +54,7 @@ export const Product = {
         return {
             activeImage: 0,
             discountCodes: ['PLATZI2022', 'PLATZI20'],
-            priceColor: 'rgb(104, 104, 209)',
+            // priceColor: 'rgb(104, 104, 209)',
         }
     },
     emits: ['send-to-cart'],
@@ -71,10 +71,19 @@ export const Product = {
         }
     },
     watch: {
-        'product.stock'(stock) {
-            if ( stock <= 1 ) {
-                this.priceColor = 'rgb(188, 30, 67)';
+        // 'product.stock'(stock) {
+        //     if ( stock <= 1 ) {
+        //         this.priceColor = 'rgb(188, 30, 67)';
+        //     }
+        // }
+    },
+    computed: {
+        priceColor() {
+            if ( this.product.stock <= 1 ) {
+                return 'rgb(188, 30, 67)';
             }
+            
+            return 'rgb(104, 104, 209)';
         }
     }
-}
+} 

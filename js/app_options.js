@@ -7,7 +7,7 @@ const app = createApp({
         return {
             cartOpen: false,
             cart: [],
-            total: 0,
+            // total: 0,
             products: [
                 {
                     name: 'Camara 1',
@@ -81,15 +81,24 @@ const app = createApp({
         }
     },
     watch: {
-        cart: {
-            handler(cart) {
-                this.total = cart.reduce((prev, curr) => {
-                    const prevPrice = prev.price || prev;
-                    const prevQuantity = prev.quantity || 1;
-                    return prevPrice * prevQuantity + curr.price * curr.quantity;
-                }, 0);
-            },
-            deep: true,
+        // cart: {
+        //     handler(cart) {
+        //         this.total = cart.reduce((prev, curr) => {
+        //             const prevPrice = prev.price || prev;
+        //             const prevQuantity = prev.quantity || 1;
+        //             return prevPrice * prevQuantity + curr.price * curr.quantity;
+        //         }, 0);
+        //     },
+        //     deep: true,
+        // }
+    },
+    computed: {
+        total() {
+            return this.cart.reduce((prev, curr) => {
+                const prevPrice = prev.price || prev;
+                const prevQuantity = prev.quantity || 1;
+                return prevPrice * prevQuantity + curr.price * curr.quantity;
+            }, 0);
         }
     }
 });
