@@ -7,6 +7,7 @@ const app = createApp({
         return {
             cartOpen: false,
             cart: [],
+            total: 0,
             products: [
                 {
                     name: 'Camara 1',
@@ -77,6 +78,18 @@ const app = createApp({
                 this.cart.push(product);
             }
             product.stock -= 1;
+        }
+    },
+    watch: {
+        cart: {
+            handler(cart) {
+                this.total = cart.reduce((prev, curr) => {
+                    const prevPrice = prev.price || prev;
+                    const prevQuantity = prev.quantity || 1;
+                    return prevPrice * prevQuantity + curr.price * curr.quantity;
+                }, 0);
+            },
+            deep: true,
         }
     }
 });
